@@ -42,8 +42,7 @@ public class JavaCouchDB {
                 readDocument(inputId,db);
                 break;
             case 3:
-                System.out.println("3");
-                break;
+                createDocument(db);
             case 4:
                 System.out.println("4");
                 break;
@@ -57,8 +56,14 @@ public class JavaCouchDB {
         System.out.println(student.getFirstname() + student.getLastname());
     }
 
-    public static void createDocument(Student student, CouchDbConnector db) {
-        DesignDocument dd = new DesignDocument();
-
+    public static void createDocument(CouchDbConnector db) {
+        Scanner scanner = new Scanner(System.in);
+        Student student = new Student();
+        System.out.print("Type in first name: ");
+        student.setFirstname(scanner.next());
+        System.out.print("Type in last name: ");
+        student.setLastname(scanner.next());
+        db.create(student);
+        System.out.println("Created " + student.getFirstname() + ' ' + student.getLastname());
     }
 }

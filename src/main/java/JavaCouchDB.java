@@ -21,9 +21,6 @@ public class JavaCouchDB {
 //--------------- Creating database----------------------------//
         CouchDbConnector db = new StdCouchDbConnector("couchdb_demo", dbInstance);
         db.createDatabaseIfNotExists();
-//--------------- Creating Document----------------------------//
-        DesignDocument dd = new DesignDocument("tis");
-        //db.create(dd);
 
         System.out.println("Choose an option below");
         System.out.println("1. Read all documents");
@@ -58,7 +55,8 @@ public class JavaCouchDB {
         Student student = db.get(Student.class, id);
     }
 
-    public void createDocument() {
+    public static void createDocument(Student student, CouchDbConnector db) {
+        DesignDocument dd = new DesignDocument();
 
     }
 }

@@ -1,4 +1,6 @@
-public class Student {
+import org.ektorp.support.CouchDbDocument;
+
+public class Student extends CouchDbDocument {
 
     private String id;
     private String firstname;

@@ -34,11 +34,12 @@ public class JavaCouchDB {
         // Cases based on users input
         switch (scanner.nextInt()) {
             case 1:
-                System.out.println("Type the ID of the student you wish you see");
-                //readDocument(scanner.nextLine());
+
                 break;
             case 2:
-                System.out.println("2");
+                System.out.println("Type the ID of the student you wish you see");
+                String inputId = scanner.next();
+                readDocument(inputId,db);
                 break;
             case 3:
                 System.out.println("3");
@@ -53,6 +54,7 @@ public class JavaCouchDB {
     }
     public static void readDocument(String id, CouchDbConnector db) {
         Student student = db.get(Student.class, id);
+        System.out.println(student.getFirstname() + student.getLastname());
     }
 
     public static void createDocument(Student student, CouchDbConnector db) {

@@ -48,16 +48,36 @@ public class JavaCouchDB {
                 System.out.println("3");
                 break;
             case 4:
-                System.out.println("4");
+                System.out.println("Type the ID of the student you wish to update");
+                updateDocument(scanner.next(), db);
                 break;
             case 5:
                 System.out.println("5");
                 break;
         }
     }
-    public static void readDocument(String id, CouchDbConnector db) {
+    public static Student readDocument(String id, CouchDbConnector db) {
         Student student = db.get(Student.class, id);
         System.out.println(student.getFirstname() + student.getLastname());
+        return student;
+    }
+
+    public static void updateDocument(String id, CouchDbConnector db) {
+        //Gets the student with the id passed in as argument
+        Student student = readDocument(id, db);
+
+        //Reads user input and sets new user data
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Type new firstname");
+        student.setFirstname(scanner.next());
+
+        System.out.println("Type new lastname");
+        student.setLastname(scanner.next());
+
+        //Updates user
+        db.update(student);
+        System.out.println("Updated student with id: " + student.getId());
     }
 
     public void createDocument() {

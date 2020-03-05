@@ -17,7 +17,7 @@ public class JavaCouchDB {
                 .build();
         CouchDbInstance dbInstance = new StdCouchDbInstance(httpClient);
 //--------------- Creating database----------------------------//
-        CouchDbConnector db = new StdCouchDbConnector("couchdb_demo2", dbInstance);
+        CouchDbConnector db = new StdCouchDbConnector("couchdb_demo", dbInstance);
         db.createDatabaseIfNotExists();
 //--------------- Creating Document----------------------------//
         DesignDocument dd = new DesignDocument("tis");

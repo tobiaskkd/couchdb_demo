@@ -12,13 +12,19 @@ public class JavaCouchDB {
 //--------------- Creating Connection--------------------------//
         HttpClient httpClient = new StdHttpClient.Builder()
                 .url("http://localhost:5984")
+                .username("admin")
+                .password("admin")
                 .build();
         CouchDbInstance dbInstance = new StdCouchDbInstance(httpClient);
 //--------------- Creating database----------------------------//
-        CouchDbConnector db = new StdCouchDbConnector("couchdb_demo", dbInstance);
-        //db.createDatabaseIfNotExists();
+        CouchDbConnector db = new StdCouchDbConnector("couchdb_demo2", dbInstance);
+        db.createDatabaseIfNotExists();
 //--------------- Creating Document----------------------------//
         DesignDocument dd = new DesignDocument("tis");
         db.create(dd);
+    }
+
+    public void createDocument() {
+
     }
 }

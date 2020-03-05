@@ -1,5 +1,7 @@
 //package couchdb;
 import java.net.MalformedURLException;
+import java.util.Scanner;
+
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpClient;
@@ -21,7 +23,39 @@ public class JavaCouchDB {
         db.createDatabaseIfNotExists();
 //--------------- Creating Document----------------------------//
         DesignDocument dd = new DesignDocument("tis");
-        db.create(dd);
+        //db.create(dd);
+
+        System.out.println("Choose an option below");
+        System.out.println("1. Read all documents");
+        System.out.println("2. Read single document");
+        System.out.println("3. Create new document");
+        System.out.println("4. Edit existing document");
+        System.out.println("5. Delete document");
+        // Scanner picks up user inputs
+        Scanner scanner = new Scanner(System.in);
+
+        // Cases based on users input
+        switch (scanner.nextInt()) {
+            case 1:
+                System.out.println("Type the ID of the student you wish you see");
+                //readDocument(scanner.nextLine());
+                break;
+            case 2:
+                System.out.println("2");
+                break;
+            case 3:
+                System.out.println("3");
+                break;
+            case 4:
+                System.out.println("4");
+                break;
+            case 5:
+                System.out.println("5");
+                break;
+        }
+    }
+    public static void readDocument(String id, CouchDbConnector db) {
+        Student student = db.get(Student.class, id);
     }
 
     public void createDocument() {

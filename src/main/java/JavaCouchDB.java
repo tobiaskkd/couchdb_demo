@@ -64,6 +64,9 @@ public class JavaCouchDB {
                     run = false;
                     System.out.println("Exiting!");
                     break;
+                default:
+                    System.out.println("Not a valid option. Try again.");
+                    break;
             }
         }
     }

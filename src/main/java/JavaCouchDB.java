@@ -1,5 +1,8 @@
 //package couchdb;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.ektorp.CouchDbConnector;
@@ -22,40 +25,68 @@ public class JavaCouchDB {
         CouchDbConnector db = new StdCouchDbConnector("couchdb_demo", dbInstance);
         db.createDatabaseIfNotExists();
 
-        System.out.println("Choose an option below");
-        System.out.println("1. Read all documents");
-        System.out.println("2. Read single document");
-        System.out.println("3. Create new document");
-        System.out.println("4. Edit existing document");
-        System.out.println("5. Delete document");
         // Scanner picks up user inputs
         Scanner scanner = new Scanner(System.in);
 
+        boolean run = true;
         // Cases based on users input
-        switch (scanner.nextInt()) {
-            case 1:
 
-                break;
-            case 2:
-                System.out.println("Type the ID of the student you wish you see");
-                String inputId = scanner.next();
-                readDocument(inputId,db);
-                break;
-            case 3:
-                createDocument(db);
-            case 4:
-                System.out.println("Type the ID of the student you wish to update");
-                updateDocument(scanner.next(), db);
-                break;
-            case 5:
-                System.out.println("5");
-                break;
+        while (run) {
+
+            System.out.println("Choose an option below");
+            System.out.println("1. Read all documents");
+            System.out.println("2. Read single document");
+            System.out.println("3. Create new document");
+            System.out.println("4. Edit existing document");
+            System.out.println("5. Delete document");
+            System.out.println("0. Exit");
+
+            switch (scanner.nextInt()) {
+                case 1:
+                    readAllDocuments(db);
+                    break;
+                case 2:
+                    System.out.println("Type the ID of the student you wish you see");
+                    String inputId = scanner.next();
+                    readDocument(inputId, db);
+                    break;
+                case 3:
+                    createDocument(db);
+                    break;
+                case 4:
+                    System.out.println("Type the ID of the student you wish to update");
+                    updateDocument(scanner.next(), db);
+                    break;
+                case 5:
+                    System.out.println("5");
+                    break;
+                case 0:
+                    run = false;
+                    System.out.println("Exiting!");
+                    break;
+            }
         }
     }
     public static Student readDocument(String id, CouchDbConnector db) {
         Student student = db.get(Student.class, id);
         System.out.println(student.getFirstname() + student.getLastname());
         return student;
+    }
+    
+    public static List<Student> readAllDocuments(CouchDbConnector db) {
+
+        List<Student> studentList = new ArrayList<>();
+        List<String> docIDs = db.getAllDocIds();
+        
+        if (!docIDs.isEmpty()) {
+            for (String docID : docIDs) {
+                Student student = db.get(Student.class, docID);
+                studentList.add(student);
+                System.out.println(student.getFirstname() + " " + student.getLastname());
+            }
+        }
+        
+        return studentList;
     }
 
     public static void updateDocument(String id, CouchDbConnector db) {
